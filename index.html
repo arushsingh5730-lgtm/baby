@@ -114,7 +114,9 @@ You are my comfort, my peace and my favorite notification 💌<br><br>
 
 I will always choose you again and again.<br><br>
 
-I Love You More Than Words Can Explain 💖
+I Love You More Than Words Can Explain 💖<br><br>
+I know i fight with you a lot but my love for you is forerver 
+and i'll love you the same forever😘
 </p>
 </div>
 
@@ -126,9 +128,17 @@ I Love You More Than Words Can Explain 💖
 </div>
 
 <h2>i love you the most baby 🎥</h2>
-<video controls src="video1.mp4"></video>
-<video controls src="video2.mp4"></video>
-<video controls src="video3.mp4"></video>
+<video class="autoVideo" muted loop playsinline preload="none">
+<source data-src="video1.mp4" type="video/mp4">
+</video>
+
+<video class="autoVideo" muted loop playsinline preload="none">
+<source data-src="video2.mp4" type="video/mp4">
+</video>
+
+<video class="autoVideo" muted loop playsinline preload="none">
+<source data-src="video3.mp4" type="video/mp4">
+</video>
 
 <script>
 
@@ -149,6 +159,32 @@ setInterval(()=>{
     document.body.appendChild(heart);
     setTimeout(()=>heart.remove(),6000);
 },350);
+// autoplay videos when visible
+const autoVideos = document.querySelectorAll(".autoVideo");
+
+const videoObserver = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        const video = entry.target;
+        const source = video.querySelector("source");
+
+        if(entry.isIntersecting){
+
+            // load video first time
+            if(source.dataset.src){
+                source.src = source.dataset.src;
+                video.load();
+                source.removeAttribute("data-src");
+            }
+
+            video.play().catch(()=>{});
+
+        }else{
+            video.pause();
+        }
+    });
+},{threshold:0.6});
+
+autoVideos.forEach(v=>videoObserver.observe(v));
 
 </script>
 
